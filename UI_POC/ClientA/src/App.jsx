@@ -28,7 +28,7 @@ function App() {
           <Link to="/table" style={{ marginRight: 16 }}>
             Table
           </Link>
-          <Link to="/config">Column Config</Link>
+          <Link to="/config">Column Config for CLint A</Link>
         </div>
 
         <Routes>

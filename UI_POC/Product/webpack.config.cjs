@@ -13,9 +13,9 @@ const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
 
 const { use } = require('react');
-const port = 3000;
+const port = 3003;
 module.exports = {
-    mode: "production",
+    mode: "development",
 
     entry: {
         main: "./src/main.jsx",
@@ -77,8 +77,8 @@ module.exports = {
             }
         ),
         new ModuleFederationPlugin({
-            name: "ClientA",
-            filename: "remoteEntry.js",
+            name: "Product",
+            // filename: "remoteEntry.js",
             // remotes: {
             //     "RoleCard": "roleComponent@http://localhost:3001/remoteEntry.js",
             //     "UserCard": "userComponent@http://localhost:3002/remoteEntry.js",

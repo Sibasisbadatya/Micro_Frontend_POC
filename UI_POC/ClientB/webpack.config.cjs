@@ -23,7 +23,7 @@ module.exports = {
     output: {
         path: path.join(__dirname, 'dist'),
         filename: "[name].[fullhash].js",
-         publicPath: "auto"
+        publicPath: "auto"
     },
     resolve: {
         extensions: [".js", ".jsx"]
@@ -79,6 +79,7 @@ module.exports = {
         ),
         new ModuleFederationPlugin({
             name: "clientB",
+            filename: "remoteEntry.js",
             remotes: {
                 product: "product@http://localhost:3003/remoteEntry.js"
             },
@@ -101,9 +102,10 @@ module.exports = {
         }),
     ],
     optimization: {
-        splitChunks: {
-            chunks: "all"
-        },
+        // splitChunks: {
+        //     chunks: "all"
+        // },
+        splitChunks: false,
         minimizer: [
             `...`,
             new CssMinimizerPlugin(),

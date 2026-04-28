@@ -22,9 +22,8 @@ module.exports = {
     },
     output: {
         path: path.join(__dirname, 'dist'),
-        filename: "[name].[fullhash].js",
-        publicPath: "http://localhost:3003/",
-        library: { type: "var", name: "product" },
+        filename: "[name].js", // Remove [fullhash] for testing
+        publicPath: "auto",
     },
     resolve: {
         extensions: [".js", ".jsx"]
@@ -104,9 +103,10 @@ module.exports = {
         })
     ],
     optimization: {
-        splitChunks: {
-            chunks: "all"
-        },
+        // splitChunks: {
+        //     chunks: "all"
+        // },
+        splitChunks: false,
         minimizer: [
             `...`,
             new CssMinimizerPlugin(),
@@ -115,6 +115,11 @@ module.exports = {
     devServer: {
         host: 'localhost',
         port: port,
+        headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
+            "Access-Control-Allow-Headers": "X-Requested-With, content-type, Authorization"
+        },
         historyApiFallback: true,
         open: true
     }

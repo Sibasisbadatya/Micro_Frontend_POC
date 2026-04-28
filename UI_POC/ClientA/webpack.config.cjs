@@ -22,7 +22,7 @@ module.exports = {
     },
     output: {
         path: path.join(__dirname, 'dist'),
-        filename: "[name].[fullhash].js",
+        filename: "[name].js", // Remove [fullhash] for testing
         publicPath: "auto"
     },
     resolve: {
@@ -79,8 +79,9 @@ module.exports = {
         ),
         new ModuleFederationPlugin({
             name: "clientA",
+            filename: "remoteEntry.js",
             remotes: {
-                product: "product@http://localhost:3003/remoteEntry.js"  
+                product: "product@http://localhost:3003/remoteEntry.js"
             },
             shared: {
                 react: { singleton: true, requiredVersion: deps.react },
@@ -101,9 +102,10 @@ module.exports = {
         }),
     ],
     optimization: {
-        splitChunks: {
-            chunks: "all"
-        },
+        // splitChunks: {
+        //     chunks: "all"
+        // },
+        splitChunks: false,
         minimizer: [
             `...`,
             new CssMinimizerPlugin(),

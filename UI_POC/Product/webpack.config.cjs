@@ -22,7 +22,9 @@ module.exports = {
     },
     output: {
         path: path.join(__dirname, 'dist'),
-        filename: "[name].[fullhash].js"
+        filename: "[name].[fullhash].js",
+        publicPath: "http://localhost:3003/",
+        library: { type: "var", name: "product" },
     },
     resolve: {
         extensions: [".js", ".jsx"]
@@ -77,26 +79,26 @@ module.exports = {
             }
         ),
         new ModuleFederationPlugin({
-            name: "Product",
-            // filename: "remoteEntry.js",
-            // remotes: {
-            //     "RoleCard": "roleComponent@http://localhost:3001/remoteEntry.js",
-            //     "UserCard": "userComponent@http://localhost:3002/remoteEntry.js",
-            // },
+            name: "product",
+            filename: "remoteEntry.js",
+            exposes: {
+                './DynamicShippingAddressForm': './src/formEngine/DynamicShippingAddressForm.jsx',
+                './FieldRegistry': './src/formEngine/FieldRegistry.js',
+            },
             shared: {
                 react: { singleton: true, requiredVersion: deps.react },
                 "react-dom": { singleton: true, requiredVersion: deps["react-dom"] },
                 "react-router-dom": {
                     singleton: true,
-                    requiredVersion: deps["react-router-dom"],
+                    requiredVersion: deps["react-router-dom"]
                 },
                 "react-redux": {
                     singleton: true,
-                    requiredVersion: deps["react-redux"],
+                    requiredVersion: deps["react-redux"]
                 },
                 "@reduxjs/toolkit": {
                     singleton: true,
-                    requiredVersion: deps["@reduxjs/toolkit"],
+                    requiredVersion: deps["@reduxjs/toolkit"]
                 },
             }
         })

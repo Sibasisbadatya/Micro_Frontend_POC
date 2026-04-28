@@ -22,7 +22,8 @@ module.exports = {
     },
     output: {
         path: path.join(__dirname, 'dist'),
-        filename: "[name].[fullhash].js"
+        filename: "[name].[fullhash].js",
+        publicPath: "auto"
     },
     resolve: {
         extensions: [".js", ".jsx"]
@@ -77,29 +78,27 @@ module.exports = {
             }
         ),
         new ModuleFederationPlugin({
-            name: "ClientA",
-            // filename: "remoteEntry.js",
-            // remotes: {
-            //     "RoleCard": "roleComponent@http://localhost:3001/remoteEntry.js",
-            //     "UserCard": "userComponent@http://localhost:3002/remoteEntry.js",
-            // },
+            name: "clientA",
+            remotes: {
+                product: "product@http://localhost:3003/remoteEntry.js"  
+            },
             shared: {
                 react: { singleton: true, requiredVersion: deps.react },
                 "react-dom": { singleton: true, requiredVersion: deps["react-dom"] },
                 "react-router-dom": {
                     singleton: true,
-                    requiredVersion: deps["react-router-dom"],
+                    requiredVersion: deps["react-router-dom"]
                 },
                 "react-redux": {
                     singleton: true,
-                    requiredVersion: deps["react-redux"],
+                    requiredVersion: deps["react-redux"]
                 },
                 "@reduxjs/toolkit": {
                     singleton: true,
-                    requiredVersion: deps["@reduxjs/toolkit"],
+                    requiredVersion: deps["@reduxjs/toolkit"]
                 },
             }
-        })
+        }),
     ],
     optimization: {
         splitChunks: {

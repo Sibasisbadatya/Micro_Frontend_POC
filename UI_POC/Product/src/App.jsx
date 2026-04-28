@@ -1,21 +1,26 @@
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import './App.css';
-import ItemsTable from './Components/ItemsTable';
-import ColumnConfigPanel from './Components/ColumnConfigPanel';
+
+const fieldsToShow = [
+  { key: "shipToId", label: "Ship To Id", required: true },
+  { key: "shipToName", label: "Ship To Name", required: true },
+  { key: "street1", label: "Street 1", required: true },
+  { key: "street2", label: "Street 2", required: false },
+  { key: "state", label: "State", required: false },
+  { key: "zip", label: "Zip Code", required: true }
+];
 
 function App() {
   return (
-    <BrowserRouter>
-      <div style={{ marginBottom: 20 }}>
-        <Link to="/table" style={{ marginRight: 16 }}>Table</Link>
-        <Link to="/config">Column Config</Link>
-      </div>
-      <Routes>
-        <Route path="/table" element={<ItemsTable />} />
-        <Route path="/config" element={<ColumnConfigPanel />} />
-        <Route path="*" element={<div>Hello Sibasis Badatya, Welcome to Product UI POC</div>} />
-      </Routes>
-    </BrowserRouter>
+    <div style={{ padding: 24 }}>
+      <h2>Fields to be shown</h2>
+      <ul>
+        {fieldsToShow.map(field => (
+          <li key={field.key}>
+            <b>{field.label}</b> {field.required ? '(required)' : ''}
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
 

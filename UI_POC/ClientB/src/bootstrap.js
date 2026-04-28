@@ -1,12 +1,14 @@
-import React from "react";
+import React, { lazy, Suspense } from 'react';
 import ReactDOM from "react-dom/client";
 import clientConfig from "./clientConfig";
+
 // Instead of directly importing
-const DynamicShippingAddressForm = React.lazy(() =>
-  import("product/DynamicShippingAddressForm").catch(() => ({
-    default: () => <div>Shipping form unavailable</div>,
-  }))
-);
+const DynamicShippingAddressForm = lazy(() => 
+    import('product/DynamicShippingAddressForm')
+)
+
+console.log("DynamicShippingAddressForm",DynamicShippingAddressForm);
+
 
 const App = () => (
 	<React.Suspense fallback={<div>Loading...</div>}>

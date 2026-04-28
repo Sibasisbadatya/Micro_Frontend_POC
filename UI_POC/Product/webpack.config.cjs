@@ -85,19 +85,24 @@ module.exports = {
                 './FieldRegistry': './src/formEngine/FieldRegistry.js',
             },
             shared: {
-                react: { singleton: true, requiredVersion: deps.react },
-                "react-dom": { singleton: true, requiredVersion: deps["react-dom"] },
+                ...deps,
+                react: {
+                    singleton: true,
+                    requiredVersion: false, // Forces them to share whatever version is loaded first
+                    eager: true,
+                },
+                "react-dom": { singleton: true, requiredVersion: false },
                 "react-router-dom": {
                     singleton: true,
-                    requiredVersion: deps["react-router-dom"]
+                    requiredVersion: false
                 },
                 "react-redux": {
                     singleton: true,
-                    requiredVersion: deps["react-redux"]
+                    requiredVersion: false
                 },
                 "@reduxjs/toolkit": {
                     singleton: true,
-                    requiredVersion: deps["@reduxjs/toolkit"]
+                    requiredVersion: false
                 },
             }
         })

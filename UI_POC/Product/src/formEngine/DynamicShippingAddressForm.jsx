@@ -1,6 +1,8 @@
 // DynamicShippingAddressForm.jsx
 import React, { useState } from 'react';
 import fieldRegistry from './FieldRegistry';
+import { Box, Grid, Button } from '@mui/material';
+import SaveIcon from '@mui/icons-material/Save';
 
 function validateField(field, value) {
   if (field.required && !value) {
@@ -46,24 +48,33 @@ const DynamicShippingAddressForm = ({ schema, initialValues = {}, onSave, fieldR
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      {schema.filter(f => !f.hidden).map(field => {
-        const FieldComp = registry[field.type || 'text'] || registry.text;
-        return (
-          <div key={field.key}>
-            <FieldComp
-              label={field.label || field.key}
-              value={values[field.key]}
-              onChange={val => handleChange(field.key, val)}
-              required={field.required}
-              {...field}
-            />
-            {errors[field.key] && <div style={{ color: 'red' }}>{errors[field.key]}</div>}
-          </div>
-        );
-      })}
-      <button type="submit">Save</button>
-    </form>
+    <Box component="form" onSubmit={handleSubmit} sx={{ width: '100%' }}>
+      <Grid container spacing={2}>
+        {schema.filter(f => !f.hidden).map(field => {
+          const FieldComp = registry[field.type || 'text'] || registry.text;
+          return (
+            <Grid item xs={12} sm={field.fullWidth === false ? 6 : 12} key={field.key}>
+              <FieldComp
+                label={field.label || field.key}
+                value={values[field.key]}
+                onChange={val => handleChange(field.key, val)}
+                required={field.required}
+                error={errors[field.key]}
+                helperText={errors[field.key]}
+                {...field}
+              />
+            </Grid>
+          );
+        })}
+        <Grid item xs={12} sx={{ display: "flex", alignItems: "center" }}>
+          <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
+            <Button type="submit" variant="contained" color="primary" startIcon={<SaveIcon />} size="large">
+              Save
+            </Button>
+          </Box>
+        </Grid>
+      </Grid>
+    </Box>
   );
 };
 

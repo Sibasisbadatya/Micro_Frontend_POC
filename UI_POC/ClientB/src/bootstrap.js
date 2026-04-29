@@ -7,7 +7,6 @@ const DynamicShippingAddressForm = lazy(() =>
     import('product/DynamicShippingAddressForm')
 )
 
-console.log("DynamicShippingAddressForm",DynamicShippingAddressForm);
 
 
 const App = () => (

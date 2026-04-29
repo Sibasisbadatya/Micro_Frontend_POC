@@ -22,7 +22,7 @@ module.exports = {
     },
     output: {
         path: path.join(__dirname, 'dist'),
-        filename: "[name].js", // Remove [fullhash] for testing
+        filename: "[name].[contenthash].js",
         publicPath: "auto",
     },
     resolve: {
